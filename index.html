@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="author" content="">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="css/normalize.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="background">
+    <p>click here to get a singleton:</p>
+
+    <button id="singleton-btn">give me a singleton</button>
+
+    <p id="pun" style="opacity: 0">There, you got a single tone.</p>
+  </div>
+
+  <style>
+    body {
+      margin: 0;
+    }
+
+    .background {
+      background-color: #cfdee7;
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      color: #1d1128;
+      font-weight: bold;
+      text-transform: uppercase;
+      font-family: sans-serif;
+    }
+
+    #pun {
+      text-transform: none;
+    }
+  </style>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.4.84/Tone.js"></script>
+  <script>
+    var synth = new Tone.Synth().toMaster()
+    var punTimeout = null;
+
+    function triggerSingleton() {
+      synth.triggerAttackRelease('C4', '8n')
+    }
+
+    function showPunForABit() {
+      var pun = document.getElementById('pun')
+      pun.style.opacity = '100'
+      clearTimeout(punTimeout)
+      punTimeout = setTimeout(function() {
+        pun.style.opacity = '0';
+      }, 2000);
+    }
+
+    function onBtnClick() {
+      triggerSingleton();
+      showPunForABit();
+    }
+
+    document.getElementById('singleton-btn').addEventListener('click', onBtnClick)
+  </script>
+</body>
+
+</html>
